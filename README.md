@@ -1,17 +1,73 @@
 # Vite 学习笔记
 
+> 当前版本：`v0.1.1`  
+> 学习目标：从零开始理解 Vite，不只是会运行命令，而是弄清楚它在现代前端项目中的位置、作用、目录结构、开发流程和构建流程。
+
 这是一个用于系统学习 Vite 的中文知识库。
 
 本仓库从零开始记录 Vite 的核心概念、项目搭建流程、目录结构、常用命令、开发环境与生产环境的区别，以及后续深入学习过程中的实践和总结。
 
-目标不是简单地“会运行 Vite 项目”，而是彻底理解：
+---
 
-- Vite 是什么
-- Vite 为什么出现
-- Vite 解决了什么问题
-- Vite 和 Webpack、Node.js、npm、React、Vue 的关系
-- Vite 项目是如何运行的
-- Vite 项目如何开发、构建和部署
+## 仓库信息建议
+
+### 仓库名
+
+```text
+vite-learning-notes
+```
+
+### 仓库描述
+
+```text
+一个从零开始学习 Vite 的中文知识库，记录 Vite 的基本概念、项目结构、开发流程、构建流程、常见问题和深入研究笔记。
+```
+
+### Topics
+
+```text
+vite
+frontend
+javascript
+npm
+nodejs
+es-modules
+frontend-build
+web-development
+learning-notes
+chinese-notes
+```
+
+---
+
+## 目录
+
+- [1. Vite 是什么？](#1-vite-是什么)
+- [2. Vite 不是什么？](#2-vite-不是什么)
+- [3. Vite 为什么出现？](#3-vite-为什么出现)
+- [4. Vite 主要替代了什么？](#4-vite-主要替代了什么)
+- [5. 最小 Vite 项目搭建](#5-最小-vite-项目搭建)
+- [6. 常用命令说明](#6-常用命令说明)
+- [7. Vite 项目目录结构](#7-vite-项目目录结构)
+- [8. 核心文件说明](#8-核心文件说明)
+- [9. src 和 public 的区别](#9-src-和-public-的区别)
+- [10. node_modules 可以删除吗？](#10-node_modules-可以删除吗)
+- [11. package-lock.json 可以删除吗？](#11-package-lockjson-可以删除吗)
+- [12. .gitignore 是什么？](#12-gitignore-是什么)
+- [13. public 可以删除吗？](#13-public-可以删除吗)
+- [14. src 中的默认文件可以删除吗？](#14-src-中的默认文件可以删除吗)
+- [15. 开发环境和生产环境](#15-开发环境和生产环境)
+- [16. 什么是 HMR？](#16-什么是-hmr)
+- [17. 什么是 ES Modules？](#17-什么是-es-modules)
+- [18. 自己创建一个模块](#18-自己创建一个模块)
+- [19. Vite 和 React、Vue 的关系](#19-vite-和-reactvue-的关系)
+- [20. vite.config.js 是什么？](#20-viteconfigjs-是什么)
+- [21. 常见报错：找不到 package.json](#21-常见报错找不到-packagejson)
+- [22. 最小源码结构](#22-最小源码结构)
+- [23. 推荐仓库目录结构](#23-推荐仓库目录结构)
+- [24. 推荐学习路线](#24-推荐学习路线)
+- [25. 后续计划](#25-后续计划)
+- [26. 当前理解总结](#26-当前理解总结)
 
 ---
 
@@ -141,6 +197,12 @@ v24.11.0
 11.6.2
 ```
 
+实际截图：
+
+![检查 Node.js 和 npm 版本](docs/images/screenshots/01-node-npm-version.png)
+
+这张截图说明：电脑已经具备运行 Vite 项目的基础环境。后续如果运行 `npm run dev` 仍然报错，通常就不是 Node.js 或 npm 没装好，而是目录不对、缺少 `package.json`，或者项目依赖没有安装。
+
 ---
 
 ### 5.2 创建一个最小 Vite 项目
@@ -170,6 +232,8 @@ vite-demo
 ```
 
 表示创建一个普通 JavaScript 项目，不使用 React 或 Vue。
+
+执行完成后，桌面会多出一个名为 `vite-demo` 的项目文件夹。
 
 ---
 
@@ -209,6 +273,12 @@ http://localhost:5173/
 ```
 
 在浏览器中打开这个地址，就可以看到 Vite 默认页面。
+
+实际截图：
+
+![Vite 默认页面与 localhost 预览](docs/images/screenshots/02-vite-localhost-preview.png)
+
+这张截图说明：Vite 本地开发服务器已经启动成功，`localhost:5173` 是当前电脑上的本地预览地址。此时修改 `src/main.js` 或 `src/style.css`，保存后浏览器通常会自动更新。
 
 ---
 
@@ -291,6 +361,22 @@ vite-demo
 │   └── style.css
 └── .gitignore
 ```
+
+实际项目根目录截图：
+
+![Vite 项目根目录文件](docs/images/screenshots/04-root-directory-files.png)
+
+从截图可以看到，除了核心的 `src`、`index.html`、`package.json`，项目中还会有 `node_modules`、`public`、`.gitignore`、`package-lock.json` 等文件或目录。
+
+其中：
+
+- `src`：源码目录。
+- `index.html`：页面入口。
+- `package.json`：npm 项目配置和命令入口。
+- `node_modules`：依赖包目录，本地开发需要，但一般不提交到 GitHub。
+- `public`：静态资源目录。
+- `.gitignore`：告诉 Git 哪些文件不要提交。
+- `package-lock.json`：npm 依赖版本锁定文件。
 
 ---
 
@@ -584,6 +670,12 @@ node_modules
 
 > 如果没有任何代码引用它，就可以删除。
 
+结合项目根目录截图：
+
+![根目录中 public、node_modules、package-lock 等文件](docs/images/screenshots/04-root-directory-files.png)
+
+建议初学阶段保留 `.gitignore`、`package-lock.json` 和 `node_modules`，如果确认没有使用 `/vite.svg`，可以删除 `public` 中的默认示例资源。
+
 ---
 
 ## 14. src 中的默认文件可以删除吗？
@@ -596,6 +688,10 @@ src/counter.js
 src/main.js
 src/style.css
 ```
+
+实际截图：
+
+![src 目录中的默认文件](docs/images/screenshots/03-src-default-files.png)
 
 其中：
 
@@ -614,6 +710,13 @@ import { setupCounter } from './counter.js'
 如果还有引用，就不能直接删除。
 
 应先删除对应的 `import` 代码，再删除文件。
+
+推荐顺序：
+
+1. 先修改 `src/main.js`，删除对 `assets` 和 `counter.js` 的引用。
+2. 保存后确认浏览器页面正常。
+3. 再删除 `src/assets` 和 `src/counter.js`。
+4. 保留 `src/main.js` 和 `src/style.css`。
 
 ---
 
@@ -863,6 +966,13 @@ package.json
 
 说明当前目录是项目根目录。
 
+排查顺序：
+
+1. 运行 `dir`，看当前目录有没有 `package.json`。
+2. 如果没有，运行 `dir /s package.json` 搜索它的位置。
+3. `cd` 到真正包含 `package.json` 的目录。
+4. 再运行 `npm install` 和 `npm run dev`。
+
 ---
 
 ## 22. 最小源码结构
@@ -886,6 +996,22 @@ package-lock.json
 .gitignore
 ```
 
+推荐初学阶段保留：
+
+```text
+vite-demo
+├── index.html
+├── package.json
+├── package-lock.json
+├── node_modules
+├── src
+│   ├── main.js
+│   └── style.css
+└── .gitignore
+```
+
+如果确认没有使用 `public` 中的资源，可以删除 `public`。
+
 ---
 
 ## 23. 推荐仓库目录结构
@@ -895,6 +1021,14 @@ package-lock.json
 ```text
 vite-learning-notes
 ├── README.md
+├── CHANGELOG.md
+├── docs
+│   └── images
+│       └── screenshots
+│           ├── 01-node-npm-version.png
+│           ├── 02-vite-localhost-preview.png
+│           ├── 03-src-default-files.png
+│           └── 04-root-directory-files.png
 ├── notes
 │   ├── 01-vite-basic.md
 │   ├── 02-project-structure.md
@@ -908,7 +1042,7 @@ vite-learning-notes
 │   ├── vanilla-basic
 │   ├── react-basic
 │   └── vue-basic
-└── changelog.md
+└── .gitignore
 ```
 
 README 可以作为总入口，详细内容可以逐步拆分到 `notes` 文件夹。
